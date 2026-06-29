@@ -97,24 +97,17 @@
             position: relative;
         }
 
+        .gallery-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+
         .gallery-slider {
             display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             gap: 4px;
             padding: 6px;
             background: #fff5f7;
-        }
-
-        .gallery-slider::-webkit-scrollbar {
-            height: 4px;
-            background: #f1d7dd;
-        }
-        .gallery-slider::-webkit-scrollbar-thumb {
-            background: #d99baa;
-            border-radius: 12px;
         }
 
         .gallery-item {
@@ -127,6 +120,7 @@
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
             transition: transform 0.2s;
             margin: 0 4px;
+            flex-shrink: 0;
         }
 
         .gallery-item img {
@@ -139,6 +133,30 @@
 
         .gallery-item:hover img {
             transform: scale(1.03);
+        }
+
+        /* Indicadores de la galería */
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 0 6px;
+            background: #fff5f7;
+        }
+
+        .gallery-dots .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #dbb5c0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-dots .dot.active {
+            background: #e8436e;
+            width: 24px;
+            border-radius: 4px;
         }
 
         /* CONTROLES MÚSICA + CORAZONES */
@@ -411,27 +429,38 @@
             <div class="sub"><i class="fas fa-star"></i> · Para la mejor mamá del mundo · <i class="fas fa-star"></i></div>
         </div>
 
-        <!-- GALERÍA DE FOTOS con tus imágenes -->
+        <!-- GALERÍA DE FOTOS con desplazamiento automático -->
         <div class="gallery fade-up fade-up-d1">
-            <div class="gallery-slider">
-                <div class="gallery-item">
-                    <img src="img/1782694173844.jpg" alt="Mi sonrisa favorita">
+            <div class="gallery-wrapper">
+                <div class="gallery-slider" id="gallerySlider">
+                    <div class="gallery-item">
+                        <img src="img/1782694173844.jpg" alt="Mi sonrisa favorita">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/1782694173856.jpg" alt="Celebrando juntos">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/1782694173895.jpg" alt="Momento especial">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/1782694173905.jpg" alt="Recuerdo bonito">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/IMG-20230420-WA0008.jpg" alt="Atardecer mágico">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/IMG-20250225-WA0049.jpg" alt="Día perfecto">
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="img/1782694173856.jpg" alt="Celebrando juntos">
-                </div>
-                <div class="gallery-item">
-                    <img src="img/1782694173895.jpg" alt="Momento especial">
-                </div>
-                <div class="gallery-item">
-                    <img src="img/1782694173905.jpg" alt="Recuerdo bonito">
-                </div>
-                <div class="gallery-item">
-                    <img src="img/IMG-20230420-WA0008.jpg" alt="Atardecer mágico">
-                </div>
-                <div class="gallery-item">
-                    <img src="img/IMG-20250225-WA0049.jpg" alt="Día perfecto">
-                </div>
+            </div>
+            <!-- Indicadores -->
+            <div class="gallery-dots" id="galleryDots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+                <span class="dot" data-index="4"></span>
+                <span class="dot" data-index="5"></span>
             </div>
         </div>
 
@@ -522,6 +551,100 @@
                 } else {
                     startHearts();
                 }
+            });
+
+            // ---------- GALERÍA AUTOMÁTICA ----------
+            const slider = document.getElementById('gallerySlider');
+            const dots = document.querySelectorAll('.dot');
+            const items = slider.querySelectorAll('.gallery-item');
+            const totalItems = items.length;
+            let currentIndex = 0;
+            let autoSlideInterval = null;
+            let isTransitioning = false;
+
+            // Función para mover el slider
+            function goToSlide(index) {
+                if (isTransitioning || index === currentIndex) return;
+                isTransitioning = true;
+                currentIndex = index;
+                
+                // Calcular el desplazamiento (80% del ancho + 4px de gap + 8px de padding)
+                const itemWidth = items[0].offsetWidth + 8; // 4px gap + 4px margen
+                const offset = currentIndex * itemWidth;
+                slider.style.transform = `translateX(-${offset}px)`;
+                
+                // Actualizar dots
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 650);
+            }
+
+            // Función para avanzar al siguiente slide
+            function nextSlide() {
+                const nextIndex = (currentIndex + 1) % totalItems;
+                goToSlide(nextIndex);
+            }
+
+            // Iniciar el desplazamiento automático
+            function startAutoSlide() {
+                if (autoSlideInterval) clearInterval(autoSlideInterval);
+                autoSlideInterval = setInterval(nextSlide, 3500);
+            }
+
+            // Detener el desplazamiento automático
+            function stopAutoSlide() {
+                if (autoSlideInterval) {
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = null;
+                }
+            }
+
+            // Evento para los dots (indicadores)
+            dots.forEach((dot) => {
+                dot.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    stopAutoSlide();
+                    goToSlide(index);
+                    setTimeout(startAutoSlide, 4000);
+                });
+            });
+
+            // Pausar auto-slide cuando el usuario interactúa con el slider
+            const galleryWrapper = document.querySelector('.gallery-wrapper');
+            galleryWrapper.addEventListener('touchstart', function() {
+                stopAutoSlide();
+            });
+            galleryWrapper.addEventListener('touchend', function() {
+                setTimeout(startAutoSlide, 4000);
+            });
+
+            galleryWrapper.addEventListener('mouseenter', function() {
+                stopAutoSlide();
+            });
+            galleryWrapper.addEventListener('mouseleave', function() {
+                setTimeout(startAutoSlide, 2000);
+            });
+
+            // Iniciar el auto-slide
+            setTimeout(startAutoSlide, 1000);
+
+            // Recalcular en resize
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    const itemWidth = items[0].offsetWidth + 8;
+                    const offset = currentIndex * itemWidth;
+                    slider.style.transition = 'none';
+                    slider.style.transform = `translateX(-${offset}px)`;
+                    setTimeout(() => {
+                        slider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    }, 50);
+                }, 200);
             });
 
             // ---------- MÚSICA ----------
@@ -626,6 +749,7 @@
             }, { passive: true });
 
             console.log('🎂 ¡Feliz Cumpleaños, Mamá! ❤️');
+            console.log('📸 Galería con desplazamiento automático');
         })();
     </script>
 </body>
