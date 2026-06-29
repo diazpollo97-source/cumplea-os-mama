@@ -359,7 +359,128 @@
             margin-top: 4px;
         }
 
-        /* FOOTER y animaciones extra */
+        /* REGALO - BOTÓN CON SORPRESA */
+        .gift-container {
+            margin: 16px 0 14px;
+        }
+
+        .gift-btn {
+            width: 100%;
+            background: linear-gradient(145deg, #fceaeef, #fadce4);
+            border: none;
+            border-radius: 40px;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 18px rgba(180, 80, 100, 0.08);
+            border: 1px solid rgba(255, 200, 200, 0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .gift-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .gift-btn:hover::before {
+            left: 100%;
+        }
+
+        .gift-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 28px rgba(200, 90, 120, 0.2);
+        }
+
+        .gift-btn:active {
+            transform: scale(0.97);
+        }
+
+        .gift-btn .gift-icono {
+            font-size: 2.4rem;
+            transition: transform 0.5s;
+        }
+
+        .gift-btn .gift-texto {
+            font-size: 1.1rem;
+            color: #4f2e3a;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .gift-btn .gift-flecha {
+            font-size: 1.2rem;
+            color: #bf4b6a;
+            transition: transform 0.4s;
+        }
+
+        .gift-btn.revelado .gift-icono {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        .gift-btn.revelado .gift-flecha {
+            transform: rotate(180deg);
+        }
+
+        /* Mensaje de sorpresa (se muestra al hacer clic) */
+        .gift-sorpresa-box {
+            margin-top: 12px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .gift-sorpresa-box.mostrar {
+            max-height: 300px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gift-sorpresa-box .sorpresa-contenido {
+            background: linear-gradient(145deg, #fff5f7, #fce4ec);
+            border-radius: 30px;
+            padding: 20px 24px;
+            text-align: center;
+            border: 2px solid rgba(232, 67, 110, 0.15);
+            box-shadow: 0 4px 16px rgba(232, 67, 110, 0.08);
+            animation: corazonLatido 1.5s ease-in-out infinite;
+        }
+
+        @keyframes corazonLatido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .gift-sorpresa-box .sorpresa-contenido .sorpresa-icono {
+            font-size: 2.8rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .gift-sorpresa-box .sorpresa-contenido .sorpresa-texto {
+            font-size: 1.2rem;
+            color: #4f2e3a;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .gift-sorpresa-box .sorpresa-contenido .sorpresa-texto i {
+            color: #e8436e;
+        }
+
+        /* FOOTER */
         .footer-note {
             text-align: center;
             margin-top: 20px;
@@ -375,7 +496,7 @@
             color: #e8436e;
         }
 
-        /* CORAZONES FLOTANDO (contenedor) */
+        /* CORAZONES FLOTANDO */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -403,7 +524,7 @@
             100% { transform: translateY(-110vh) scale(1.2) rotate(20deg); opacity: 0; }
         }
 
-        /* diseño responsive */
+        /* responsive */
         @media (max-width: 480px) {
             .card { padding: 20px 16px; border-radius: 36px; }
             .header h1 { font-size: 2.2rem; }
@@ -413,9 +534,13 @@
             .modal-carta { padding: 30px 20px 28px; }
             .modal-carta .encabezado-carta h2 { font-size: 1.2rem; }
             .modal-carta .cuerpo-carta { font-size: 0.9rem; }
+            .gift-btn { padding: 16px 18px; }
+            .gift-btn .gift-texto { font-size: 1rem; }
+            .gift-btn .gift-icono { font-size: 2rem; }
+            .gift-sorpresa-box .sorpresa-contenido .sorpresa-texto { font-size: 1rem; }
         }
 
-        /* animaciones de entrada para elementos */
+        /* animaciones de entrada */
         .fade-up {
             opacity: 0;
             animation: fadeUp 0.8s ease forwards;
@@ -430,7 +555,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* detalle extra: gradiente suave en el fondo */
         .bg-blur-circle {
             position: fixed;
             border-radius: 100%;
@@ -453,12 +577,10 @@
             height: 400px;
         }
 
-        /* Ocultar el reproductor de audio por defecto */
         #audioPlayer {
             display: none;
         }
 
-        /* Scroll bonito para la carta */
         .modal-carta::-webkit-scrollbar {
             width: 4px;
         }
@@ -478,10 +600,10 @@
     <div class="bg-blur-circle"></div>
     <div class="bg-blur-circle bg-blur-circle-2"></div>
 
-    <!-- CORAZONES FLOTANDO (contenedor) -->
+    <!-- CORAZONES FLOTANDO -->
     <div id="heartsContainer" class="hearts-container"></div>
 
-    <!-- REPRODUCTOR DE AUDIO OCULTO (siempre sonando) -->
+    <!-- REPRODUCTOR DE AUDIO OCULTO -->
     <audio id="audioPlayer" loop autoplay>
         <source src="audio/El Cumpleaños De Mi Madre.mp3" type="audio/mpeg">
         Tu navegador no soporta audio.
@@ -500,7 +622,7 @@
             <div class="sub"><i class="fas fa-star"></i> · Para la mejor mamá del mundo · <i class="fas fa-star"></i></div>
         </div>
 
-        <!-- GALERÍA DE FOTOS con desplazamiento automático -->
+        <!-- GALERÍA DE FOTOS -->
         <div class="gallery fade-up fade-up-d1">
             <div class="gallery-wrapper">
                 <div class="gallery-slider" id="gallerySlider">
@@ -524,7 +646,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Indicadores -->
             <div class="gallery-dots" id="galleryDots">
                 <span class="dot active" data-index="0"></span>
                 <span class="dot" data-index="1"></span>
@@ -548,18 +669,26 @@
             </div>
         </div>
 
-        <!-- CAJA DE REGALO (sorpresa al hacer clic) -->
-        <div class="gift-box fade-up fade-up-d3" id="giftBox">
-            <span class="gift-icon"><i class="fas fa-gift"></i></span>
-            <div class="gift-text">🎁 ¡Toca para tu sorpresa, Mamá!</div>
-            <div class="gift-sorpresa" id="giftReveal">
-                <i class="fas fa-heart" style="color:#e8436e;"></i> 
-                ¡Eres la mejor mamá del mundo! Te amo ❤️
-                <i class="fas fa-heart" style="color:#e8436e;"></i>
+        <!-- REGALO - BOTÓN CON SORPRESA -->
+        <div class="gift-container fade-up fade-up-d3">
+            <button class="gift-btn" id="giftBtn">
+                <span class="gift-icono">🎁</span>
+                <span class="gift-texto">¡Toca para tu sorpresa, Mamá!</span>
+                <span class="gift-flecha">▼</span>
+            </button>
+            
+            <div class="gift-sorpresa-box" id="giftSorpresaBox">
+                <div class="sorpresa-contenido">
+                    <span class="sorpresa-icono">💖</span>
+                    <div class="sorpresa-texto">
+                        ¡Eres la mejor mamá del mundo! <br>
+                        Te amo <i class="fas fa-heart" style="color:#e8436e;"></i><i class="fas fa-heart" style="color:#e8436e;"></i>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- pie / mensaje -->
+        <!-- FOOTER -->
         <div class="footer-note fade-up fade-up-d4">
             <i class="fas fa-crown"></i> 
             Con todo mi cariño, para ti 
@@ -568,7 +697,7 @@
 
     </div>
 
-    <!-- MODAL DE LA CARTA CON TU MENSAJE -->
+    <!-- MODAL CARTA -->
     <div class="modal-overlay" id="modalCarta">
         <div class="modal-carta">
             <button class="cerrar-modal" id="cerrarCarta">✕</button>
@@ -743,7 +872,7 @@
                 }, 200);
             });
 
-            // ---------- CARTA DE AMOR (MODAL) ----------
+            // ---------- CARTA ----------
             const cartaBtn = document.getElementById('cartaBtn');
             const modalCarta = document.getElementById('modalCarta');
             const cerrarCarta = document.getElementById('cerrarCarta');
@@ -763,21 +892,19 @@
             cartaBtn.addEventListener('click', abrirCarta);
             cerrarCarta.addEventListener('click', cerrarCartaModal);
 
-            // Cerrar al hacer clic fuera de la carta
             modalCarta.addEventListener('click', function(e) {
                 if (e.target === modalCarta) {
                     cerrarCartaModal();
                 }
             });
 
-            // Cerrar con tecla ESC
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && modalCarta.classList.contains('mostrar')) {
                     cerrarCartaModal();
                 }
             });
 
-            // ---------- MÚSICA AUTOMÁTICA (siempre sonando) ----------
+            // ---------- MÚSICA ----------
             const audio = document.getElementById('audioPlayer');
 
             function iniciarMusica() {
@@ -798,45 +925,28 @@
 
             setTimeout(iniciarMusica, 300);
 
-            // ---------- CAJA DE REGALO ----------
-            const giftBox = document.getElementById('giftBox');
+            // ---------- REGALO CON BOTÓN Y SORPRESA ----------
+            const giftBtn = document.getElementById('giftBtn');
+            const giftSorpresaBox = document.getElementById('giftSorpresaBox');
 
-            giftBox.addEventListener('click', function(e) {
+            let sorpresaVisible = false;
+
+            giftBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                this.classList.toggle('reveal');
-                if (this.classList.contains('reveal')) {
-                    for (let i=0; i<12; i++) {
+                sorpresaVisible = !sorpresaVisible;
+                
+                if (sorpresaVisible) {
+                    this.classList.add('revelado');
+                    giftSorpresaBox.classList.add('mostrar');
+                    // Confeti de celebración
+                    for (let i=0; i<14; i++) {
                         setTimeout(() => {
                             const h = document.createElement('div');
                             h.style.position = 'fixed';
-                            h.style.left = (15 + Math.random() * 70) + '%';
-                            h.style.top = (15 + Math.random() * 50) + '%';
-                            h.style.fontSize = (1.8 + Math.random() * 2.8) + 'rem';
+                            h.style.left = (10 + Math.random() * 80) + '%';
+                            h.style.top = (10 + Math.random() * 60) + '%';
+                            h.style.fontSize = (1.8 + Math.random() * 3) + 'rem';
                             h.style.pointerEvents = 'none';
                             h.style.zIndex = '999';
-                            h.innerHTML = ['🎉','🎊','💝','✨','🌟','💖','🎁','🌸','❤️','🌺','🎈','💐'][Math.floor(Math.random()*12)];
-                            h.style.transition = 'all 1.8s cubic-bezier(0.16, 1, 0.3, 1)';
-                            h.style.opacity = '1';
-                            h.style.transform = 'scale(1.3) rotate(15deg)';
-                            document.body.appendChild(h);
-                            setTimeout(() => {
-                                h.style.opacity = '0';
-                                h.style.transform = 'scale(2.5) translateY(-150px) rotate(30deg)';
-                                setTimeout(() => h.remove(), 1800);
-                            }, 150);
-                        }, i * 120);
-                    }
-                }
-            });
-
-            window.addEventListener('touchmove', function(e) {
-            }, { passive: true });
-
-            console.log('🎂 ¡Feliz Cumpleaños, Mamá! ❤️');
-            console.log('📸 Galería con desplazamiento automático');
-            console.log('🎵 Canción: "El Cumpleaños De Mi Madre" (siempre sonando)');
-            console.log('💌 Carta de amor con mensaje personalizado');
-        })();
-    </script>
-</body>
-</html>
+                            h.innerHTML = ['🎉','🎊','💝','✨','🌟','💖','🎁','🌸','❤️','🌺','🎈','💐','🥳','🎂'][Math.floor(Math.random()*14)];
+                            h.style.transition = 'all 1.8s cubic-bezier(0.16,
