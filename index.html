@@ -159,149 +159,191 @@
             border-radius: 4px;
         }
 
-        /* CONTROLES MÚSICA + CORAZONES */
+        /* CONTROLES - CARTA DE AMOR */
         .action-row {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            justify-content: center;
             gap: 12px;
             margin: 10px 0 18px;
         }
 
-        .music-player {
+        .carta-container {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 235, 238, 0.7);
-            backdrop-filter: blur(4px);
-            padding: 8px 18px 8px 14px;
-            border-radius: 100px;
-            border: 1px solid rgba(255, 200, 200, 0.3);
-        }
-
-        .music-player button {
-            background: #e8436e;
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 100%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.25s;
-            box-shadow: 0 6px 14px rgba(232, 67, 110, 0.35);
-            display: flex;
-            align-items: center;
             justify-content: center;
+            width: 100%;
         }
 
-        .music-player button:hover {
-            transform: scale(1.06);
-            background: #d6335c;
-            box-shadow: 0 8px 18px rgba(232, 67, 110, 0.45);
-        }
-
-        .music-player button:active {
-            transform: scale(0.94);
-        }
-
-        .music-label {
-            font-size: 0.85rem;
-            color: #5d3e48;
-            font-weight: 400;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .music-label i {
-            color: #d45c7a;
-        }
-
-        .floating-hearts-toggle {
-            background: rgba(255, 215, 215, 0.5);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 180, 180, 0.4);
-            border-radius: 100px;
-            padding: 8px 20px;
-            color: #7f4b5a;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: default;
-            font-weight: 400;
-        }
-
-        .floating-hearts-toggle i {
-            color: #e8436e;
-            font-size: 1.2rem;
-        }
-
-        /* CAJA DE REGALO (sorpresa) */
-        .gift-box {
+        .carta-btn {
             background: linear-gradient(145deg, #fceaeef, #fadce4);
-            border-radius: 40px;
-            padding: 22px 16px 18px;
-            margin: 16px 0 14px;
-            text-align: center;
-            border: 1px solid rgba(255, 200, 200, 0.3);
+            border: none;
+            border-radius: 100px;
+            padding: 14px 32px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 18px rgba(180, 80, 100, 0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 8px 24px rgba(180, 80, 100, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.1rem;
+            color: #4f2e3a;
+            font-weight: 500;
+            border: 1px solid rgba(255, 200, 200, 0.3);
             position: relative;
             overflow: hidden;
         }
 
-        .gift-box:hover {
-            background: #fadce4;
-            transform: scale(1.01);
-            box-shadow: 0 12px 28px rgba(200, 90, 120, 0.15);
+        .carta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
         }
 
-        .gift-box:active {
-            transform: scale(0.98);
+        .carta-btn:hover::before {
+            left: 100%;
         }
 
-        .gift-box .gift-icon {
-            font-size: 2.8rem;
-            color: #bf4b6a;
-            transition: 0.3s;
-            display: block;
-            margin-bottom: 4px;
+        .carta-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 32px rgba(200, 90, 120, 0.25);
         }
 
-        .gift-box .gift-text {
-            font-size: 1.05rem;
-            color: #4f2e3a;
-            font-weight: 500;
-            letter-spacing: 0.6px;
+        .carta-btn:active {
+            transform: scale(0.96);
         }
 
-        .gift-box .gift-sorpresa {
-            margin-top: 12px;
-            font-size: 1.5rem;
+        .carta-btn .icono-carta {
+            font-size: 2rem;
+            transition: transform 0.4s;
+        }
+
+        .carta-btn.abierta .icono-carta {
+            transform: rotate(-8deg) scale(1.1);
+        }
+
+        .carta-btn .texto-carta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+        }
+
+        .carta-btn .texto-carta small {
+            font-size: 0.7rem;
             font-weight: 300;
-            color: #a1556b;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(6px);
-            border-radius: 100px;
-            padding: 6px 12px;
-            display: inline-block;
+            color: #9c6d7b;
         }
 
-        .gift-box.reveal .gift-sorpresa {
-            opacity: 1;
-            transform: translateY(0);
+        /* VENTANA MODAL DE LA CARTA */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
         }
 
-        .gift-box.reveal .gift-icon {
-            transform: scale(0.9) rotate(-5deg);
+        .modal-overlay.mostrar {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-carta {
+            max-width: 420px;
+            width: 100%;
+            background: #fffaf5;
+            border-radius: 40px;
+            padding: 40px 32px 36px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 1px solid rgba(255, 215, 215, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-carta .cerrar-modal {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #b07a8a;
+            cursor: pointer;
+            transition: transform 0.3s;
+            padding: 4px 8px;
+        }
+
+        .modal-carta .cerrar-modal:hover {
+            transform: rotate(90deg);
+            color: #e8436e;
+        }
+
+        .modal-carta .encabezado-carta {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-carta .encabezado-carta .corazon {
+            font-size: 2.4rem;
+            color: #e8436e;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .modal-carta .encabezado-carta h2 {
+            color: #4f2e3a;
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .modal-carta .cuerpo-carta {
+            color: #5d3e48;
+            line-height: 1.9;
+            font-size: 1rem;
+            text-align: justify;
+            padding: 8px 0;
+        }
+
+        .modal-carta .cuerpo-carta p {
+            margin-bottom: 14px;
+        }
+
+        .modal-carta .cuerpo-carta .firma {
+            text-align: right;
+            font-style: italic;
+            color: #b07a8a;
+            margin-top: 12px;
+            font-size: 1.05rem;
+        }
+
+        .modal-carta .cuerpo-carta .firma i {
+            color: #e8436e;
         }
 
         /* FOOTER y animaciones extra */
@@ -353,8 +395,10 @@
             .card { padding: 20px 16px; border-radius: 36px; }
             .header h1 { font-size: 2.2rem; }
             .gallery-item { flex: 0 0 85%; }
-            .music-player { padding: 6px 12px 6px 10px; }
-            .music-player button { width: 34px; height: 34px; font-size: 1rem; }
+            .carta-btn { padding: 12px 24px; font-size: 1rem; }
+            .carta-btn .icono-carta { font-size: 1.6rem; }
+            .modal-carta { padding: 30px 20px 28px; }
+            .modal-carta .encabezado-carta h2 { font-size: 1.3rem; }
         }
 
         /* animaciones de entrada para elementos */
@@ -370,17 +414,6 @@
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(16px); }
             100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* botón de pausa en estado */
-        .music-player .pause-icon {
-            display: none;
-        }
-        .music-player.playing .play-icon {
-            display: none;
-        }
-        .music-player.playing .pause-icon {
-            display: inline-block;
         }
 
         /* detalle extra: gradiente suave en el fondo */
@@ -410,6 +443,19 @@
         #audioPlayer {
             display: none;
         }
+
+        /* Scroll bonito para la carta */
+        .modal-carta::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal-carta::-webkit-scrollbar-track {
+            background: #fce4ec;
+            border-radius: 10px;
+        }
+        .modal-carta::-webkit-scrollbar-thumb {
+            background: #d99baa;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -421,8 +467,8 @@
     <!-- CORAZONES FLOTANDO (contenedor) -->
     <div id="heartsContainer" class="hearts-container"></div>
 
-    <!-- REPRODUCTOR DE AUDIO OCULTO -->
-    <audio id="audioPlayer" loop>
+    <!-- REPRODUCTOR DE AUDIO OCULTO (siempre sonando) -->
+    <audio id="audioPlayer" loop autoplay>
         <source src="audio/El Cumpleaños De Mi Madre.mp3" type="audio/mpeg">
         Tu navegador no soporta audio.
     </audio>
@@ -475,22 +521,16 @@
             </div>
         </div>
 
-        <!-- FILA: MÚSICA + CORAZONES -->
+        <!-- CARTA DE AMOR (reemplaza el botón de música) -->
         <div class="action-row fade-up fade-up-d2">
-            <div class="music-player" id="musicPlayer">
-                <button id="musicToggleBtn" aria-label="Reproducir/Pausar música">
-                    <i class="fas fa-play play-icon"></i>
-                    <i class="fas fa-pause pause-icon"></i>
+            <div class="carta-container">
+                <button class="carta-btn" id="cartaBtn">
+                    <span class="icono-carta">💌</span>
+                    <span class="texto-carta">
+                        Carta de Amor
+                        <small>❤️ Toca para leer</small>
+                    </span>
                 </button>
-                <span class="music-label">
-                    <i class="fas fa-music"></i> 
-                    <span id="musicStatus">sonando</span>
-                </span>
-            </div>
-            <div class="floating-hearts-toggle">
-                <i class="fas fa-heart"></i> 
-                <span>flotando</span>
-                <i class="fas fa-arrow-up" style="font-size: 0.7rem; opacity: 0.7;"></i>
             </div>
         </div>
 
@@ -512,6 +552,50 @@
             <i class="fas fa-crown"></i>
         </div>
 
+    </div>
+
+    <!-- MODAL DE LA CARTA -->
+    <div class="modal-overlay" id="modalCarta">
+        <div class="modal-carta">
+            <button class="cerrar-modal" id="cerrarCarta">✕</button>
+            
+            <div class="encabezado-carta">
+                <span class="corazon">💖</span>
+                <h2>Para mi mamá hermosa</h2>
+            </div>
+            
+            <div class="cuerpo-carta">
+                <p>
+                    Hoy, en tu día especial, quiero decirte todo lo que llevo en el corazón. 
+                    Eres la mujer más fuerte, cariñosa y maravillosa que conozco. 
+                    Cada uno de mis días está lleno de tu amor, tu paciencia y tu ternura.
+                </p>
+                <p>
+                    Gracias por cada abrazo, cada palabra de aliento, cada noche en vela 
+                    cuando estaba enfermo, cada sonrisa que me regalaste incluso en los 
+                    días difíciles. Tu amor ha sido mi refugio y mi fortaleza.
+                </p>
+                <p>
+                    Eres el pilar de nuestra familia, la luz que ilumina cada rincón de 
+                    nuestra casa. Tu corazón enorme y generoso ha enseñado a todos nosotros 
+                    el verdadero significado del amor incondicional.
+                </p>
+                <p>
+                    Hoy celebro tu vida, tu sonrisa y tu esencia. Que este nuevo año de 
+                    vida te traiga tanta felicidad como la que tú le has dado a todos los 
+                    que te rodean.
+                </p>
+                <p>
+                    Te amo con todo mi corazón, hoy y siempre. 
+                    <br>
+                    <span style="color: #e8436e;">❤️ Feliz Cumpleaños, mamá ❤️</span>
+                </p>
+                <div class="firma">
+                    Con todo mi amor, <br>
+                    <i class="fas fa-heart" style="color: #e8436e;"></i> Tu hijo/a que te adora
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -648,63 +732,62 @@
                 }, 200);
             });
 
-            // ---------- MÚSICA CON AUDIO REAL ----------
+            // ---------- CARTA DE AMOR (MODAL) ----------
+            const cartaBtn = document.getElementById('cartaBtn');
+            const modalCarta = document.getElementById('modalCarta');
+            const cerrarCarta = document.getElementById('cerrarCarta');
+
+            function abrirCarta() {
+                modalCarta.classList.add('mostrar');
+                document.body.style.overflow = 'hidden';
+                cartaBtn.classList.add('abierta');
+            }
+
+            function cerrarCartaModal() {
+                modalCarta.classList.remove('mostrar');
+                document.body.style.overflow = '';
+                cartaBtn.classList.remove('abierta');
+            }
+
+            cartaBtn.addEventListener('click', abrirCarta);
+            cerrarCarta.addEventListener('click', cerrarCartaModal);
+
+            // Cerrar al hacer clic fuera de la carta
+            modalCarta.addEventListener('click', function(e) {
+                if (e.target === modalCarta) {
+                    cerrarCartaModal();
+                }
+            });
+
+            // Cerrar con tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modalCarta.classList.contains('mostrar')) {
+                    cerrarCartaModal();
+                }
+            });
+
+            // ---------- MÚSICA AUTOMÁTICA (siempre sonando) ----------
             const audio = document.getElementById('audioPlayer');
-            const musicBtn = document.getElementById('musicToggleBtn');
-            const musicPlayerEl = document.getElementById('musicPlayer');
-            const musicStatus = document.getElementById('musicStatus');
 
-            let isPlaying = false;
-
-            // Intentar reproducir automáticamente al cargar
-            function playAudio() {
+            // Intentar reproducir automáticamente
+            function iniciarMusica() {
                 audio.play()
                     .then(() => {
-                        isPlaying = true;
-                        musicPlayerEl.classList.add('playing');
-                        musicStatus.innerText = 'sonando';
-                        console.log('🎵 Música reproduciéndose');
+                        console.log('🎵 Canción sonando: "El Cumpleaños De Mi Madre"');
                     })
                     .catch((error) => {
-                        console.log('🔇 Autoplay bloqueado. Esperando interacción del usuario.');
-                        musicStatus.innerText = 'pausa';
-                        document.addEventListener('click', function playOnClick() {
+                        console.log('🔇 Autoplay bloqueado. Esperando interacción...');
+                        // Cuando el usuario haga clic en cualquier parte, iniciar música
+                        document.addEventListener('click', function iniciar() {
                             audio.play()
-                                .then(() => {
-                                    isPlaying = true;
-                                    musicPlayerEl.classList.add('playing');
-                                    musicStatus.innerText = 'sonando';
-                                    console.log('🎵 Música iniciada por clic');
-                                })
-                                .catch(e => console.log('❌ Error al reproducir:', e));
-                            document.removeEventListener('click', playOnClick);
+                                .then(() => console.log('🎵 Música iniciada por clic'))
+                                .catch(e => console.log('Error:', e));
+                            document.removeEventListener('click', iniciar);
                         }, { once: true });
                     });
             }
 
-            // Función para toggle (play/pausa)
-            function toggleMusic() {
-                if (isPlaying) {
-                    audio.pause();
-                    isPlaying = false;
-                    musicPlayerEl.classList.remove('playing');
-                    musicStatus.innerText = 'pausa';
-                } else {
-                    audio.play()
-                        .then(() => {
-                            isPlaying = true;
-                            musicPlayerEl.classList.add('playing');
-                            musicStatus.innerText = 'sonando';
-                        })
-                        .catch(e => console.log('Error:', e));
-                }
-            }
-
-            // Evento del botón de música
-            musicBtn.addEventListener('click', toggleMusic);
-
-            // Iniciar música al cargar
-            setTimeout(playAudio, 500);
+            setTimeout(iniciarMusica, 300);
 
             // ---------- CAJA DE REGALO ----------
             const giftBox = document.getElementById('giftBox');
@@ -742,7 +825,8 @@
 
             console.log('🎂 ¡Feliz Cumpleaños, Mamá! ❤️');
             console.log('📸 Galería con desplazamiento automático');
-            console.log('🎵 Canción: "El Cumpleaños De Mi Madre"');
+            console.log('🎵 Canción: "El Cumpleaños De Mi Madre" (siempre sonando)');
+            console.log('💌 Carta de amor lista para leer');
         })();
     </script>
 </body>
