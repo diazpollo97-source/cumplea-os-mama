@@ -267,7 +267,7 @@
         }
 
         .modal-carta {
-            max-width: 420px;
+            max-width: 480px;
             width: 100%;
             background: #fffaf5;
             border-radius: 40px;
@@ -306,6 +306,8 @@
         .modal-carta .encabezado-carta {
             text-align: center;
             margin-bottom: 20px;
+            border-bottom: 2px solid #fce4ec;
+            padding-bottom: 16px;
         }
 
         .modal-carta .encabezado-carta .corazon {
@@ -317,33 +319,44 @@
 
         .modal-carta .encabezado-carta h2 {
             color: #4f2e3a;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 500;
             letter-spacing: 1px;
         }
 
         .modal-carta .cuerpo-carta {
-            color: #5d3e48;
+            color: #4a343e;
             line-height: 1.9;
-            font-size: 1rem;
+            font-size: 0.98rem;
             text-align: justify;
             padding: 8px 0;
         }
 
         .modal-carta .cuerpo-carta p {
             margin-bottom: 14px;
+            text-indent: 20px;
         }
 
         .modal-carta .cuerpo-carta .firma {
             text-align: right;
             font-style: italic;
             color: #b07a8a;
-            margin-top: 12px;
+            margin-top: 20px;
             font-size: 1.05rem;
+            border-top: 2px solid #fce4ec;
+            padding-top: 16px;
+            text-indent: 0;
         }
 
         .modal-carta .cuerpo-carta .firma i {
             color: #e8436e;
+        }
+
+        .modal-carta .cuerpo-carta .firma .pollito {
+            display: block;
+            font-size: 1.2rem;
+            color: #e8436e;
+            margin-top: 4px;
         }
 
         /* FOOTER y animaciones extra */
@@ -398,7 +411,8 @@
             .carta-btn { padding: 12px 24px; font-size: 1rem; }
             .carta-btn .icono-carta { font-size: 1.6rem; }
             .modal-carta { padding: 30px 20px 28px; }
-            .modal-carta .encabezado-carta h2 { font-size: 1.3rem; }
+            .modal-carta .encabezado-carta h2 { font-size: 1.2rem; }
+            .modal-carta .cuerpo-carta { font-size: 0.9rem; }
         }
 
         /* animaciones de entrada para elementos */
@@ -521,7 +535,7 @@
             </div>
         </div>
 
-        <!-- CARTA DE AMOR (reemplaza el botón de música) -->
+        <!-- CARTA DE AMOR -->
         <div class="action-row fade-up fade-up-d2">
             <div class="carta-container">
                 <button class="carta-btn" id="cartaBtn">
@@ -554,7 +568,7 @@
 
     </div>
 
-    <!-- MODAL DE LA CARTA -->
+    <!-- MODAL DE LA CARTA CON TU MENSAJE -->
     <div class="modal-overlay" id="modalCarta">
         <div class="modal-carta">
             <button class="cerrar-modal" id="cerrarCarta">✕</button>
@@ -566,33 +580,30 @@
             
             <div class="cuerpo-carta">
                 <p>
-                    Hoy, en tu día especial, quiero decirte todo lo que llevo en el corazón. 
-                    Eres la mujer más fuerte, cariñosa y maravillosa que conozco. 
-                    Cada uno de mis días está lleno de tu amor, tu paciencia y tu ternura.
+                    Hoy quiero aprovechar tu cumpleaños para decirte algo que muchas veces me cuesta expresar con palabras.
                 </p>
                 <p>
-                    Gracias por cada abrazo, cada palabra de aliento, cada noche en vela 
-                    cuando estaba enfermo, cada sonrisa que me regalaste incluso en los 
-                    días difíciles. Tu amor ha sido mi refugio y mi fortaleza.
+                    Primero que todo, feliz cumpleaños. Gracias por todo lo que has hecho por mí, por cada esfuerzo, por cada consejo y por nunca dejar de estar ahí, incluso cuando yo no he sido la mejor persona.
                 </p>
                 <p>
-                    Eres el pilar de nuestra familia, la luz que ilumina cada rincón de 
-                    nuestra casa. Tu corazón enorme y generoso ha enseñado a todos nosotros 
-                    el verdadero significado del amor incondicional.
+                    También quiero pedirte perdón. Perdón por las veces que te he contestado mal, por mis actitudes, por los momentos en los que te hice sentir triste o decepcionada. Sé que he cometido errores y que a veces mi manera de ser no ha sido la mejor.
                 </p>
                 <p>
-                    Hoy celebro tu vida, tu sonrisa y tu esencia. Que este nuevo año de 
-                    vida te traiga tanta felicidad como la que tú le has dado a todos los 
-                    que te rodean.
+                    Quiero que sepas que estoy intentando cambiar. Quiero que algún día puedas sentirte orgullosa de mí, no solo por lo que logre, sino por la persona en la que me estoy convirtiendo.
                 </p>
                 <p>
-                    Te amo con todo mi corazón, hoy y siempre. 
-                    <br>
-                    <span style="color: #e8436e;">❤️ Feliz Cumpleaños, mamá ❤️</span>
+                    Te amo mucho, aunque a veces no lo demuestre como debería. Gracias por quererme incluso en mis peores momentos y por seguir creyendo en mí.
+                </p>
+                <p>
+                    Espero que hoy tengas un día muy feliz, porque te lo mereces más que nadie. Deseo que Dios te dé mucha salud, felicidad y muchos años más de vida para seguir compartiendo momentos contigo.
+                </p>
+                <p>
+                    Feliz cumpleaños, mamá. Gracias por ser la mejor.
                 </p>
                 <div class="firma">
-                    Con todo mi amor, <br>
-                    <i class="fas fa-heart" style="color: #e8436e;"></i> Tu hijo/a que te adora
+                    Con mucho cariño, <br>
+                    <i class="fas fa-heart" style="color: #e8436e;"></i> 
+                    <span class="pollito">🐤 Tu pollito ❤️</span>
                 </div>
             </div>
         </div>
@@ -769,7 +780,6 @@
             // ---------- MÚSICA AUTOMÁTICA (siempre sonando) ----------
             const audio = document.getElementById('audioPlayer');
 
-            // Intentar reproducir automáticamente
             function iniciarMusica() {
                 audio.play()
                     .then(() => {
@@ -777,7 +787,6 @@
                     })
                     .catch((error) => {
                         console.log('🔇 Autoplay bloqueado. Esperando interacción...');
-                        // Cuando el usuario haga clic en cualquier parte, iniciar música
                         document.addEventListener('click', function iniciar() {
                             audio.play()
                                 .then(() => console.log('🎵 Música iniciada por clic'))
@@ -796,25 +805,25 @@
                 e.stopPropagation();
                 this.classList.toggle('reveal');
                 if (this.classList.contains('reveal')) {
-                    for (let i=0; i<10; i++) {
+                    for (let i=0; i<12; i++) {
                         setTimeout(() => {
                             const h = document.createElement('div');
                             h.style.position = 'fixed';
-                            h.style.left = (20 + Math.random() * 60) + '%';
-                            h.style.top = (20 + Math.random() * 40) + '%';
-                            h.style.fontSize = (1.8 + Math.random() * 2.5) + 'rem';
+                            h.style.left = (15 + Math.random() * 70) + '%';
+                            h.style.top = (15 + Math.random() * 50) + '%';
+                            h.style.fontSize = (1.8 + Math.random() * 2.8) + 'rem';
                             h.style.pointerEvents = 'none';
                             h.style.zIndex = '999';
-                            h.innerHTML = ['🎉','🎊','💝','✨','🌟','💖','🎁','🌸','❤️','🌺'][Math.floor(Math.random()*10)];
-                            h.style.transition = 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                            h.innerHTML = ['🎉','🎊','💝','✨','🌟','💖','🎁','🌸','❤️','🌺','🎈','💐'][Math.floor(Math.random()*12)];
+                            h.style.transition = 'all 1.8s cubic-bezier(0.16, 1, 0.3, 1)';
                             h.style.opacity = '1';
-                            h.style.transform = 'scale(1.2) rotate(10deg)';
+                            h.style.transform = 'scale(1.3) rotate(15deg)';
                             document.body.appendChild(h);
                             setTimeout(() => {
                                 h.style.opacity = '0';
-                                h.style.transform = 'scale(2) translateY(-120px)';
-                                setTimeout(() => h.remove(), 1600);
-                            }, 100);
+                                h.style.transform = 'scale(2.5) translateY(-150px) rotate(30deg)';
+                                setTimeout(() => h.remove(), 1800);
+                            }, 150);
                         }, i * 120);
                     }
                 }
@@ -826,7 +835,7 @@
             console.log('🎂 ¡Feliz Cumpleaños, Mamá! ❤️');
             console.log('📸 Galería con desplazamiento automático');
             console.log('🎵 Canción: "El Cumpleaños De Mi Madre" (siempre sonando)');
-            console.log('💌 Carta de amor lista para leer');
+            console.log('💌 Carta de amor con mensaje personalizado');
         })();
     </script>
 </body>
