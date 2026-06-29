@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>🎂 Feliz Cumpleaños</title>
+    <title>🎂 Feliz Cumpleaños, Mamá</title>
     <!-- Font Awesome (íconos) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -87,7 +87,7 @@
             margin-top: 4px;
         }
 
-        /* GALERÍA DE FOTOS (carrusel elegante) */
+        /* GALERÍA DE FOTOS */
         .gallery {
             margin: 24px 0 22px;
             border-radius: 32px;
@@ -139,26 +139,6 @@
 
         .gallery-item:hover img {
             transform: scale(1.03);
-        }
-
-        /* texto placeholder si no hay imágenes */
-        .gallery-item .placeholder-img {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(130deg, #f9d4de, #f7c8d4);
-            color: #a05f72;
-            font-weight: 300;
-            font-size: 1rem;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .gallery-item .placeholder-img i {
-            font-size: 2.8rem;
-            color: #b16f82;
-            opacity: 0.7;
         }
 
         /* CONTROLES MÚSICA + CORAZONES */
@@ -425,34 +405,33 @@
         <div class="header fade-up">
             <h1>
                 <i class="fas fa-birthday-cake"></i> 
-                Feliz Día
+                Feliz Cumpleaños, Mamá
                 <i class="fas fa-heart" style="font-size: 2rem; color: #e8436e;"></i>
             </h1>
-            <div class="sub"><i class="fas fa-star"></i> · hoy es especial · <i class="fas fa-star"></i></div>
+            <div class="sub"><i class="fas fa-star"></i> · Para la mejor mamá del mundo · <i class="fas fa-star"></i></div>
         </div>
 
-        <!-- GALERÍA DE FOTOS (reemplazar imágenes) -->
+        <!-- GALERÍA DE FOTOS con tus imágenes -->
         <div class="gallery fade-up fade-up-d1">
             <div class="gallery-slider">
-                <!-- Cada .gallery-item es una foto. Reemplaza el src o el contenido -->
                 <div class="gallery-item">
-                    <img src="https://picsum.photos/seed/cumple1/600/400" alt="Foto 1">
+                    <img src="img/1782694173844.jpg" alt="Mi sonrisa favorita">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://picsum.photos/seed/cumple2/600/400" alt="Foto 2">
+                    <img src="img/1782694173856.jpg" alt="Celebrando juntos">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://picsum.photos/seed/cumple3/600/400" alt="Foto 3">
+                    <img src="img/1782694173895.jpg" alt="Momento especial">
                 </div>
-                <!-- Puedes reemplazar las imágenes o añadir más. Si no hay imagen, se muestra un placeholder -->
-                <!-- Ejemplo con placeholder (comentado) 
                 <div class="gallery-item">
-                    <div class="placeholder-img">
-                        <i class="fas fa-image"></i>
-                        <span>tu foto aquí</span>
-                    </div>
+                    <img src="img/1782694173905.jpg" alt="Recuerdo bonito">
                 </div>
-                -->
+                <div class="gallery-item">
+                    <img src="img/IMG-20230420-WA0008.jpg" alt="Atardecer mágico">
+                </div>
+                <div class="gallery-item">
+                    <img src="img/IMG-20250225-WA0049.jpg" alt="Día perfecto">
+                </div>
             </div>
         </div>
 
@@ -478,10 +457,10 @@
         <!-- CAJA DE REGALO (sorpresa al hacer clic) -->
         <div class="gift-box fade-up fade-up-d3" id="giftBox">
             <span class="gift-icon"><i class="fas fa-gift"></i></span>
-            <div class="gift-text">🎁 Toca para abrir tu sorpresa</div>
+            <div class="gift-text">🎁 ¡Toca para tu sorpresa, Mamá!</div>
             <div class="gift-sorpresa" id="giftReveal">
                 <i class="fas fa-heart" style="color:#e8436e;"></i> 
-                ¡Eres increíble! 
+                ¡Eres la mejor mamá del mundo! Te amo ❤️
                 <i class="fas fa-heart" style="color:#e8436e;"></i>
             </div>
         </div>
@@ -489,7 +468,7 @@
         <!-- pie / mensaje -->
         <div class="footer-note fade-up fade-up-d4">
             <i class="fas fa-crown"></i> 
-            con cariño, para ti 
+            Con todo mi cariño, para ti 
             <i class="fas fa-crown"></i>
         </div>
 
@@ -508,14 +487,13 @@
                 if (!heartsActive) return;
                 const heart = document.createElement('div');
                 heart.classList.add('heart-float');
-                heart.innerHTML = ['❤️','🌸','💖','✨','🩷','💗'][Math.floor(Math.random() * 6)];
+                heart.innerHTML = ['❤️','🌸','💖','✨','🩷','💗','🌺','💝'][Math.floor(Math.random() * 8)];
                 heart.style.left = Math.random() * 100 + '%';
                 heart.style.fontSize = (1.2 + Math.random() * 2.2) + 'rem';
                 heart.style.animationDuration = (6 + Math.random() * 8) + 's';
                 heart.style.opacity = 0.5 + Math.random() * 0.4;
                 heartsContainer.appendChild(heart);
 
-                // eliminar después de que termine la animación
                 setTimeout(() => {
                     if (heart.parentNode) heart.remove();
                 }, 14000);
@@ -524,7 +502,6 @@
             function startHearts() {
                 if (heartsInterval) clearInterval(heartsInterval);
                 heartsActive = true;
-                // llenar un poco al inicio
                 for (let i = 0; i < 8; i++) setTimeout(createHeart, i * 300);
                 heartsInterval = setInterval(createHeart, 500);
             }
@@ -535,28 +512,24 @@
                     clearInterval(heartsInterval);
                     heartsInterval = null;
                 }
-                // opcional: remover corazones existentes (para no acumular)
-                // pero los dejamos para transición suave
             }
 
-            // inicio automático
             startHearts();
 
-            // (opcional) pausar/reanudar con botón de música? no, independiente.
-            // pero podemos controlar desde el toggle de corazones si quisieramos, pero no hay botón.
-            // se mantienen siempre activos.
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    stopHearts();
+                } else {
+                    startHearts();
+                }
+            });
 
-            // ---------- MÚSICA (simulada) ----------
+            // ---------- MÚSICA ----------
             const musicBtn = document.getElementById('musicToggleBtn');
             const musicPlayerEl = document.getElementById('musicPlayer');
             const musicStatus = document.getElementById('musicStatus');
 
-            // No tenemos audio real, simulamos estado.
             let isPlaying = false;
-
-            // Para simular una canción, usamos el Web Audio para generar un tono suave (opcional)
-            // pero mejor solo cambiamos el estado visual. 
-            // Sin embargo, para dar sensación, usamos un AudioContext pequeño (solo para el ejemplo)
             let audioCtx = null;
             let oscillator = null;
             let gainNode = null;
@@ -567,20 +540,18 @@
                     oscillator = audioCtx.createOscillator();
                     gainNode = audioCtx.createGain();
                     oscillator.type = 'sine';
-                    oscillator.frequency.value = 523.25; // C5
+                    oscillator.frequency.value = 523.25;
                     gainNode.gain.value = 0.08;
                     oscillator.connect(gainNode);
                     gainNode.connect(audioCtx.destination);
                     oscillator.start();
-                    // pequeño fade
+                    
                     gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime);
-                    // oscilación suave
                     oscillator.frequency.setValueAtTime(523, audioCtx.currentTime);
                     oscillator.frequency.linearRampToValueAtTime(659, audioCtx.currentTime + 0.3);
                     oscillator.frequency.linearRampToValueAtTime(587, audioCtx.currentTime + 0.6);
                     oscillator.frequency.linearRampToValueAtTime(523, audioCtx.currentTime + 0.9);
-                    // loop infinito? no, solo para demostración.
-                    // mejor la dejamos sonar un rato y se apaga.
+                    
                     setTimeout(() => {
                         if (oscillator) {
                             try { oscillator.stop(); } catch(e) {}
@@ -596,13 +567,10 @@
                 if (isPlaying) {
                     musicPlayerEl.classList.add('playing');
                     musicStatus.innerText = 'sonando';
-                    // Reproducir un pequeño tono de ejemplo
                     startSound();
-                    // También podemos mostrar un mensaje
                 } else {
                     musicPlayerEl.classList.remove('playing');
                     musicStatus.innerText = 'pausa';
-                    // detener sonido si existe
                     if (oscillator) {
                         try { oscillator.stop(); } catch(e) {}
                         oscillator = null;
@@ -616,40 +584,37 @@
 
             musicBtn.addEventListener('click', toggleMusic);
 
-            // si el usuario toca el botón por primera vez, activamos el audio context
             document.addEventListener('click', function initAudio() {
                 if (!audioCtx) {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 }
             }, { once: true });
 
-            // ---------- CAJA DE REGALO (sorpresa) ----------
+            // ---------- CAJA DE REGALO ----------
             const giftBox = document.getElementById('giftBox');
             const giftReveal = document.getElementById('giftReveal');
 
             giftBox.addEventListener('click', function(e) {
                 e.stopPropagation();
                 this.classList.toggle('reveal');
-                // si está revelado, mostramos animación extra
                 if (this.classList.contains('reveal')) {
-                    // confeti de corazones (opcional) 
-                    for (let i=0; i<8; i++) {
+                    for (let i=0; i<10; i++) {
                         setTimeout(() => {
                             const h = document.createElement('div');
                             h.style.position = 'fixed';
-                            h.style.left = (30 + Math.random() * 40) + '%';
-                            h.style.top = (30 + Math.random() * 30) + '%';
-                            h.style.fontSize = (1.5 + Math.random() * 2) + 'rem';
+                            h.style.left = (20 + Math.random() * 60) + '%';
+                            h.style.top = (20 + Math.random() * 40) + '%';
+                            h.style.fontSize = (1.8 + Math.random() * 2.5) + 'rem';
                             h.style.pointerEvents = 'none';
                             h.style.zIndex = '999';
-                            h.innerHTML = ['🎉','🎊','💝','✨','🌟','💖','🎁','🌸'][Math.floor(Math.random()*8)];
+                            h.innerHTML = ['🎉','🎊','💝','✨','🌟','💖','🎁','🌸','❤️','🌺'][Math.floor(Math.random()*10)];
                             h.style.transition = 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
                             h.style.opacity = '1';
                             h.style.transform = 'scale(1.2) rotate(10deg)';
                             document.body.appendChild(h);
                             setTimeout(() => {
                                 h.style.opacity = '0';
-                                h.style.transform = 'scale(2) translateY(-100px)';
+                                h.style.transform = 'scale(2) translateY(-120px)';
                                 setTimeout(() => h.remove(), 1600);
                             }, 100);
                         }, i * 120);
@@ -657,26 +622,10 @@
                 }
             });
 
-            // ---------- EFECTOS DE ENTRADA (ya con CSS) ----------
-            // todo listo
-
-            // ---------- COMPATIBILIDAD: pausar corazones si se desea? no, siempre activos.
-            // pero podemos añadir un toggle opcional si se desea.
-            // agregamos un "reset" de corazones si la pestaña se oculta.
-            document.addEventListener('visibilitychange', function() {
-                if (document.hidden) {
-                    stopHearts();
-                } else {
-                    startHearts();
-                }
-            });
-
-            // para móviles, evitar scroll horizontal
             window.addEventListener('touchmove', function(e) {
-                // no hacer nada, solo prevenir si es necesario
             }, { passive: true });
 
-            console.log('🎂 Página de cumpleaños lista. ¡Disfruta!');
+            console.log('🎂 ¡Feliz Cumpleaños, Mamá! ❤️');
         })();
     </script>
 </body>
