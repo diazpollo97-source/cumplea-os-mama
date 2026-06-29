@@ -471,6 +471,182 @@
             color: #e8436e;
         }
 
+        /* ===== VELITAS MÁGICAS ===== */
+        .velitas-container {
+            margin: 18px 0 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 16px 8px;
+            background: rgba(255, 215, 215, 0.15);
+            border-radius: 60px;
+            border: 1px solid rgba(255, 200, 200, 0.2);
+            position: relative;
+        }
+
+        .velita {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .velita:hover {
+            transform: scale(1.08);
+        }
+
+        .velita:active {
+            transform: scale(0.92);
+        }
+
+        .velita .cuerpo {
+            width: 22px;
+            height: 50px;
+            background: linear-gradient(180deg, #f5c5c5, #e8a0a0);
+            border-radius: 4px 4px 8px 8px;
+            border: 1px solid rgba(180, 80, 80, 0.2);
+            position: relative;
+            box-shadow: inset -2px 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        .velita .cuerpo .rayas {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 24px;
+            background: repeating-linear-gradient(
+                180deg,
+                rgba(180, 80, 80, 0.15) 0px,
+                rgba(180, 80, 80, 0.15) 4px,
+                transparent 4px,
+                transparent 6px
+            );
+        }
+
+        .velita .llama {
+            width: 16px;
+            height: 22px;
+            background: radial-gradient(ellipse at bottom, #ff6b35, #ffaa33, #ffdd77);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            margin-bottom: -6px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: llamaFlicker 0.8s ease-in-out infinite alternate;
+            box-shadow: 0 0 30px rgba(255, 150, 50, 0.6), 0 0 60px rgba(255, 100, 30, 0.3);
+        }
+
+        .velita .llama::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 12px;
+            background: radial-gradient(ellipse, #ffee88, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: llamaGlow 1.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes llamaFlicker {
+            0% { transform: scale(1) rotate(-2deg); }
+            50% { transform: scale(1.08) rotate(2deg); }
+            100% { transform: scale(0.95) rotate(-1deg); }
+        }
+
+        @keyframes llamaGlow {
+            0% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+            100% { opacity: 0.8; transform: translateX(-50%) scale(1.3); }
+        }
+
+        .velita.apagada .llama {
+            opacity: 0;
+            transform: scale(0);
+            animation: none;
+            box-shadow: none;
+        }
+
+        .velita.apagada .llama::after {
+            opacity: 0;
+            animation: none;
+        }
+
+        .velita.apagada .cuerpo {
+            background: linear-gradient(180deg, #d4b0b0, #c09999);
+        }
+
+        .velita .numero {
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: #7f5a66;
+            font-weight: 500;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .velita.apagada .numero {
+            opacity: 0.3;
+        }
+
+        /* Mensaje de "Pide un deseo" */
+        .deseo-mensaje {
+            text-align: center;
+            margin: 8px 0 4px;
+            font-size: 1.1rem;
+            color: #4f2e3a;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(-10px) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .deseo-mensaje.mostrar {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .deseo-mensaje .emoji-estrella {
+            font-size: 1.8rem;
+            animation: estrellaGirar 2s linear infinite;
+        }
+
+        @keyframes estrellaGirar {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .deseo-mensaje .texto-deseo {
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, #e8436e, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        /* Contador de velitas apagadas */
+        .contador-velitas {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #9c6d7b;
+            margin-top: 2px;
+            opacity: 0.6;
+        }
+
         .footer-note {
             text-align: center;
             margin-top: 20px;
@@ -526,6 +702,11 @@
             .gift-btn .gift-texto { font-size: 1rem; }
             .gift-btn .gift-icono { font-size: 2rem; }
             .gift-sorpresa-box .sorpresa-contenido .sorpresa-texto { font-size: 1rem; }
+            .velita .cuerpo { width: 18px; height: 40px; }
+            .velita .llama { width: 13px; height: 18px; }
+            .velitas-container { gap: 12px; padding: 12px 6px; }
+            .deseo-mensaje { font-size: 1rem; }
+            .deseo-mensaje .texto-deseo { font-size: 1rem; }
         }
 
         .fade-up {
@@ -536,6 +717,7 @@
         .fade-up-d2 { animation-delay: 0.25s; }
         .fade-up-d3 { animation-delay: 0.4s; }
         .fade-up-d4 { animation-delay: 0.55s; }
+        .fade-up-d5 { animation-delay: 0.7s; }
 
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(16px); }
@@ -579,6 +761,20 @@
             background: #d99baa;
             border-radius: 10px;
         }
+
+        /* Animación de estrellas al apagar todas */
+        .estrellas-confeti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            font-size: 2.5rem;
+            animation: estrellaExplosion 2s ease-out forwards;
+        }
+
+        @keyframes estrellaExplosion {
+            0% { opacity: 1; transform: translate(0, 0) scale(0.5) rotate(0deg); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(720deg); }
+        }
     </style>
 </head>
 <body>
@@ -604,7 +800,45 @@
             <div class="sub"><i class="fas fa-star"></i> · Para la mejor mamá del mundo · <i class="fas fa-star"></i></div>
         </div>
 
-        <div class="gallery fade-up fade-up-d1">
+        <!-- VELITAS MÁGICAS -->
+        <div class="velitas-container fade-up fade-up-d1">
+            <div class="velita" data-numero="1">
+                <div class="llama"></div>
+                <div class="cuerpo"><div class="rayas"></div></div>
+                <span class="numero">1</span>
+            </div>
+            <div class="velita" data-numero="2">
+                <div class="llama"></div>
+                <div class="cuerpo"><div class="rayas"></div></div>
+                <span class="numero">2</span>
+            </div>
+            <div class="velita" data-numero="3">
+                <div class="llama"></div>
+                <div class="cuerpo"><div class="rayas"></div></div>
+                <span class="numero">3</span>
+            </div>
+            <div class="velita" data-numero="4">
+                <div class="llama"></div>
+                <div class="cuerpo"><div class="rayas"></div></div>
+                <span class="numero">4</span>
+            </div>
+            <div class="velita" data-numero="5">
+                <div class="llama"></div>
+                <div class="cuerpo"><div class="rayas"></div></div>
+                <span class="numero">5</span>
+            </div>
+        </div>
+
+        <!-- Mensaje de deseo -->
+        <div class="deseo-mensaje fade-up fade-up-d2" id="deseoMensaje">
+            <span class="emoji-estrella">✨</span>
+            <span class="texto-deseo">¡Pide un deseo, mamá!</span>
+            <span class="emoji-estrella">✨</span>
+        </div>
+
+        <div class="contador-velitas fade-up fade-up-d2" id="contadorVelitas">🕯️ 5 velitas encendidas</div>
+
+        <div class="gallery fade-up fade-up-d3">
             <div class="gallery-wrapper">
                 <div class="gallery-slider" id="gallerySlider">
                     <div class="gallery-item">
@@ -637,7 +871,7 @@
             </div>
         </div>
 
-        <div class="action-row fade-up fade-up-d2">
+        <div class="action-row fade-up fade-up-d4">
             <div class="carta-container">
                 <button class="carta-btn" id="cartaBtn">
                     <span class="icono-carta">💌</span>
@@ -649,7 +883,7 @@
             </div>
         </div>
 
-        <div class="gift-container fade-up fade-up-d3">
+        <div class="gift-container fade-up fade-up-d5">
             <button class="gift-btn" id="giftBtn">
                 <span class="gift-icono">🎁</span>
                 <span class="gift-texto">¡Toca para tu sorpresa, Mamá!</span>
@@ -667,7 +901,7 @@
             </div>
         </div>
 
-        <div class="footer-note fade-up fade-up-d4">
+        <div class="footer-note fade-up fade-up-d5">
             <i class="fas fa-crown"></i> 
             Con todo mi cariño, para ti 
             <i class="fas fa-crown"></i>
@@ -720,22 +954,23 @@
             "use strict";
 
             // ---------- CORAZONES FLOTANDO ----------
-            const heartsContainer = document.getElementById('heartsContainer');
-            let heartsInterval = null;
-            let heartsActive = true;
+            var heartsContainer = document.getElementById('heartsContainer');
+            var heartsInterval = null;
+            var heartsActive = true;
 
             function createHeart() {
                 if (!heartsActive) return;
-                const heart = document.createElement('div');
+                var heart = document.createElement('div');
                 heart.classList.add('heart-float');
-                heart.innerHTML = ['❤️','🌸','💖','✨','🩷','💗','🌺','💝'][Math.floor(Math.random() * 8)];
+                var emojis = ['❤️','🌸','💖','✨','🩷','💗','🌺','💝'];
+                heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
                 heart.style.left = Math.random() * 100 + '%';
                 heart.style.fontSize = (1.2 + Math.random() * 2.2) + 'rem';
                 heart.style.animationDuration = (6 + Math.random() * 8) + 's';
                 heart.style.opacity = 0.5 + Math.random() * 0.4;
                 heartsContainer.appendChild(heart);
 
-                setTimeout(() => {
+                setTimeout(function() {
                     if (heart.parentNode) heart.remove();
                 }, 14000);
             }
@@ -743,7 +978,7 @@
             function startHearts() {
                 if (heartsInterval) clearInterval(heartsInterval);
                 heartsActive = true;
-                for (let i = 0; i < 8; i++) setTimeout(createHeart, i * 300);
+                for (var i = 0; i < 8; i++) setTimeout(createHeart, i * 300);
                 heartsInterval = setInterval(createHeart, 500);
             }
 
@@ -765,22 +1000,111 @@
                 }
             });
 
+            // ---------- VELITAS MÁGICAS ----------
+            var velitas = document.querySelectorAll('.velita');
+            var deseoMensaje = document.getElementById('deseoMensaje');
+            var contadorVelitas = document.getElementById('contadorVelitas');
+            var velitasApagadas = 0;
+            var totalVelitas = velitas.length;
+            var deseoMostrado = false;
+
+            function actualizarContador() {
+                var encendidas = totalVelitas - velitasApagadas;
+                if (encendidas === 0) {
+                    contadorVelitas.textContent = '🕯️ ¡Todas las velitas apagadas! ✨';
+                    contadorVelitas.style.color = '#e8436e';
+                    contadorVelitas.style.fontWeight = '600';
+                } else {
+                    contadorVelitas.textContent = '🕯️ ' + encendidas + ' velitas encendidas';
+                    contadorVelitas.style.color = '#9c6d7b';
+                    contadorVelitas.style.fontWeight = '300';
+                }
+            }
+
+            function mostrarMensajeDeseo() {
+                deseoMensaje.classList.add('mostrar');
+                deseoMostrado = true;
+                // Efecto de estrellas
+                for (var i = 0; i < 20; i++) {
+                    (function(indice) {
+                        setTimeout(function() {
+                            var estrella = document.createElement('div');
+                            estrella.className = 'estrellas-confeti';
+                            var emojis = ['✨','🌟','⭐','💫','🎆'];
+                            estrella.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                            estrella.style.left = (10 + Math.random() * 80) + '%';
+                            estrella.style.top = (10 + Math.random() * 60) + '%';
+                            estrella.style.setProperty('--tx', (Math.random() * 300 - 150) + 'px');
+                            estrella.style.setProperty('--ty', (Math.random() * -400 - 100) + 'px');
+                            estrella.style.fontSize = (1.5 + Math.random() * 2.5) + 'rem';
+                            document.body.appendChild(estrella);
+                            setTimeout(function() {
+                                if (estrella.parentNode) estrella.remove();
+                            }, 2500);
+                        }, indice * 100);
+                    })(i);
+                }
+            }
+
+            velitas.forEach(function(velita) {
+                velita.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    if (this.classList.contains('apagada')) return;
+                    
+                    this.classList.add('apagada');
+                    velitasApagadas++;
+                    actualizarContador();
+                    
+                    // Pequeña animación de partículas al apagar
+                    for (var i = 0; i < 6; i++) {
+                        (function(indice) {
+                            setTimeout(function() {
+                                var particula = document.createElement('div');
+                                particula.style.position = 'fixed';
+                                var rect = velita.getBoundingClientRect();
+                                particula.style.left = (rect.left + rect.width/2 + (Math.random() - 0.5) * 30) + 'px';
+                                particula.style.top = (rect.top + (Math.random() - 0.5) * 20) + 'px';
+                                particula.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+                                particula.style.pointerEvents = 'none';
+                                particula.style.zIndex = '999';
+                                particula.style.transition = 'all 1.2s ease-out';
+                                var emojis = ['💨','✨','🌟','💫'];
+                                particula.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                                particula.style.opacity = '1';
+                                document.body.appendChild(particula);
+                                setTimeout(function() {
+                                    particula.style.opacity = '0';
+                                    particula.style.transform = 'translateY(-80px) scale(1.5)';
+                                    setTimeout(function() { if (particula.parentNode) particula.remove(); }, 1300);
+                                }, 50);
+                            }, indice * 60);
+                        })(i);
+                    }
+
+                    // Si todas las velitas están apagadas, mostrar mensaje
+                    if (velitasApagadas === totalVelitas && !deseoMostrado) {
+                        setTimeout(mostrarMensajeDeseo, 400);
+                    }
+                });
+            });
+
             // ---------- GALERÍA AUTOMÁTICA ----------
-            const slider = document.getElementById('gallerySlider');
-            const dots = document.querySelectorAll('.dot');
-            const items = slider.querySelectorAll('.gallery-item');
-            const totalItems = items.length;
-            let currentIndex = 0;
-            let autoSlideInterval = null;
-            let isTransitioning = false;
+            var slider = document.getElementById('gallerySlider');
+            var dots = document.querySelectorAll('.dot');
+            var items = slider.querySelectorAll('.gallery-item');
+            var totalItems = items.length;
+            var currentIndex = 0;
+            var autoSlideInterval = null;
+            var isTransitioning = false;
 
             function goToSlide(index) {
                 if (isTransitioning || index === currentIndex) return;
                 isTransitioning = true;
                 currentIndex = index;
                 
-                const itemWidth = items[0].offsetWidth + 8;
-                const offset = currentIndex * itemWidth;
+                var itemWidth = items[0].offsetWidth + 8;
+                var offset = currentIndex * itemWidth;
                 slider.style.transform = 'translateX(-' + offset + 'px)';
                 
                 dots.forEach(function(dot, i) {
@@ -903,10 +1227,9 @@
 
             setTimeout(iniciarMusica, 300);
 
-            // ---------- REGALO CON BOTÓN Y SORPRESA ----------
+            // ---------- REGALO ----------
             var giftBtn = document.getElementById('giftBtn');
             var giftSorpresaBox = document.getElementById('giftSorpresaBox');
-
             var sorpresaVisible = false;
 
             giftBtn.addEventListener('click', function(e) {
@@ -916,7 +1239,6 @@
                 if (sorpresaVisible) {
                     this.classList.add('revelado');
                     giftSorpresaBox.classList.add('mostrar');
-                    // Confeti de celebración
                     for (var i = 0; i < 14; i++) {
                         (function(indice) {
                             setTimeout(function() {
@@ -948,8 +1270,9 @@
             });
 
             console.log('🎂 ¡Feliz Cumpleaños, Mamá! ❤️');
+            console.log('🕯️ Velitas mágicas: toca cada una para apagarlas');
             console.log('📸 Galería con desplazamiento automático');
-            console.log('🎵 Canción: "El Cumpleaños De Mi Madre" (siempre sonando)');
+            console.log('🎵 Canción: "El Cumpleaños De Mi Madre"');
             console.log('💌 Carta de amor lista para leer');
             console.log('🎁 Botón de regalo con sorpresa');
 
