@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>🎂 Feliz Cumpleaños, Mamá</title>
-    <!-- Font Awesome (íconos) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -26,7 +25,6 @@
             overflow-x: hidden;
         }
 
-        /* TARJETA PRINCIPAL */
         .card {
             max-width: 480px;
             width: 100%;
@@ -48,7 +46,6 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* ENCABEZADO */
         .header {
             text-align: center;
             margin-bottom: 16px;
@@ -87,7 +84,6 @@
             margin-top: 4px;
         }
 
-        /* GALERÍA DE FOTOS */
         .gallery {
             margin: 24px 0 22px;
             border-radius: 32px;
@@ -135,7 +131,6 @@
             transform: scale(1.03);
         }
 
-        /* Indicadores de la galería */
         .gallery-dots {
             display: flex;
             justify-content: center;
@@ -159,7 +154,6 @@
             border-radius: 4px;
         }
 
-        /* CONTROLES - CARTA DE AMOR */
         .action-row {
             display: flex;
             align-items: center;
@@ -239,7 +233,6 @@
             color: #9c6d7b;
         }
 
-        /* VENTANA MODAL DE LA CARTA */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -359,7 +352,6 @@
             margin-top: 4px;
         }
 
-        /* REGALO - BOTÓN CON SORPRESA */
         .gift-container {
             margin: 16px 0 14px;
         }
@@ -432,7 +424,6 @@
             transform: rotate(180deg);
         }
 
-        /* Mensaje de sorpresa (se muestra al hacer clic) */
         .gift-sorpresa-box {
             margin-top: 12px;
             max-height: 0;
@@ -480,7 +471,6 @@
             color: #e8436e;
         }
 
-        /* FOOTER */
         .footer-note {
             text-align: center;
             margin-top: 20px;
@@ -496,7 +486,6 @@
             color: #e8436e;
         }
 
-        /* CORAZONES FLOTANDO */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -524,7 +513,6 @@
             100% { transform: translateY(-110vh) scale(1.2) rotate(20deg); opacity: 0; }
         }
 
-        /* responsive */
         @media (max-width: 480px) {
             .card { padding: 20px 16px; border-radius: 36px; }
             .header h1 { font-size: 2.2rem; }
@@ -540,7 +528,6 @@
             .gift-sorpresa-box .sorpresa-contenido .sorpresa-texto { font-size: 1rem; }
         }
 
-        /* animaciones de entrada */
         .fade-up {
             opacity: 0;
             animation: fadeUp 0.8s ease forwards;
@@ -596,23 +583,18 @@
 </head>
 <body>
 
-    <!-- fondos decorativos -->
     <div class="bg-blur-circle"></div>
     <div class="bg-blur-circle bg-blur-circle-2"></div>
 
-    <!-- CORAZONES FLOTANDO -->
     <div id="heartsContainer" class="hearts-container"></div>
 
-    <!-- REPRODUCTOR DE AUDIO OCULTO -->
     <audio id="audioPlayer" loop autoplay>
         <source src="audio/El Cumpleaños De Mi Madre.mp3" type="audio/mpeg">
         Tu navegador no soporta audio.
     </audio>
 
-    <!-- TARJETA PRINCIPAL -->
     <div class="card">
 
-        <!-- ENCABEZADO -->
         <div class="header fade-up">
             <h1>
                 <i class="fas fa-birthday-cake"></i> 
@@ -622,7 +604,6 @@
             <div class="sub"><i class="fas fa-star"></i> · Para la mejor mamá del mundo · <i class="fas fa-star"></i></div>
         </div>
 
-        <!-- GALERÍA DE FOTOS -->
         <div class="gallery fade-up fade-up-d1">
             <div class="gallery-wrapper">
                 <div class="gallery-slider" id="gallerySlider">
@@ -656,7 +637,6 @@
             </div>
         </div>
 
-        <!-- CARTA DE AMOR -->
         <div class="action-row fade-up fade-up-d2">
             <div class="carta-container">
                 <button class="carta-btn" id="cartaBtn">
@@ -669,7 +649,6 @@
             </div>
         </div>
 
-        <!-- REGALO - BOTÓN CON SORPRESA -->
         <div class="gift-container fade-up fade-up-d3">
             <button class="gift-btn" id="giftBtn">
                 <span class="gift-icono">🎁</span>
@@ -688,7 +667,6 @@
             </div>
         </div>
 
-        <!-- FOOTER -->
         <div class="footer-note fade-up fade-up-d4">
             <i class="fas fa-crown"></i> 
             Con todo mi cariño, para ti 
@@ -697,7 +675,6 @@
 
     </div>
 
-    <!-- MODAL CARTA -->
     <div class="modal-overlay" id="modalCarta">
         <div class="modal-carta">
             <button class="cerrar-modal" id="cerrarCarta">✕</button>
@@ -804,19 +781,19 @@
                 
                 const itemWidth = items[0].offsetWidth + 8;
                 const offset = currentIndex * itemWidth;
-                slider.style.transform = `translateX(-${offset}px)`;
+                slider.style.transform = 'translateX(-' + offset + 'px)';
                 
-                dots.forEach((dot, i) => {
+                dots.forEach(function(dot, i) {
                     dot.classList.toggle('active', i === currentIndex);
                 });
 
-                setTimeout(() => {
+                setTimeout(function() {
                     isTransitioning = false;
                 }, 650);
             }
 
             function nextSlide() {
-                const nextIndex = (currentIndex + 1) % totalItems;
+                var nextIndex = (currentIndex + 1) % totalItems;
                 goToSlide(nextIndex);
             }
 
@@ -832,16 +809,17 @@
                 }
             }
 
-            dots.forEach((dot) => {
-                dot.addEventListener('click', function() {
-                    const index = parseInt(this.dataset.index);
-                    stopAutoSlide();
-                    goToSlide(index);
-                    setTimeout(startAutoSlide, 4000);
-                });
-            });
+            for (var i = 0; i < dots.length; i++) {
+                (function(index) {
+                    dots[index].addEventListener('click', function() {
+                        stopAutoSlide();
+                        goToSlide(index);
+                        setTimeout(startAutoSlide, 4000);
+                    });
+                })(i);
+            }
 
-            const galleryWrapper = document.querySelector('.gallery-wrapper');
+            var galleryWrapper = document.querySelector('.gallery-wrapper');
             galleryWrapper.addEventListener('touchstart', function() {
                 stopAutoSlide();
             });
@@ -858,24 +836,24 @@
 
             setTimeout(startAutoSlide, 1000);
 
-            let resizeTimeout;
+            var resizeTimeout;
             window.addEventListener('resize', function() {
                 clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    const itemWidth = items[0].offsetWidth + 8;
-                    const offset = currentIndex * itemWidth;
+                resizeTimeout = setTimeout(function() {
+                    var itemWidth = items[0].offsetWidth + 8;
+                    var offset = currentIndex * itemWidth;
                     slider.style.transition = 'none';
-                    slider.style.transform = `translateX(-${offset}px)`;
-                    setTimeout(() => {
+                    slider.style.transform = 'translateX(-' + offset + 'px)';
+                    setTimeout(function() {
                         slider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                     }, 50);
                 }, 200);
             });
 
             // ---------- CARTA ----------
-            const cartaBtn = document.getElementById('cartaBtn');
-            const modalCarta = document.getElementById('modalCarta');
-            const cerrarCarta = document.getElementById('cerrarCarta');
+            var cartaBtn = document.getElementById('cartaBtn');
+            var modalCarta = document.getElementById('modalCarta');
+            var cerrarCarta = document.getElementById('cerrarCarta');
 
             function abrirCarta() {
                 modalCarta.classList.add('mostrar');
@@ -905,19 +883,19 @@
             });
 
             // ---------- MÚSICA ----------
-            const audio = document.getElementById('audioPlayer');
+            var audio = document.getElementById('audioPlayer');
 
             function iniciarMusica() {
                 audio.play()
-                    .then(() => {
+                    .then(function() {
                         console.log('🎵 Canción sonando: "El Cumpleaños De Mi Madre"');
                     })
-                    .catch((error) => {
+                    .catch(function(error) {
                         console.log('🔇 Autoplay bloqueado. Esperando interacción...');
                         document.addEventListener('click', function iniciar() {
                             audio.play()
-                                .then(() => console.log('🎵 Música iniciada por clic'))
-                                .catch(e => console.log('Error:', e));
+                                .then(function() { console.log('🎵 Música iniciada por clic'); })
+                                .catch(function(e) { console.log('Error:', e); });
                             document.removeEventListener('click', iniciar);
                         }, { once: true });
                     });
@@ -926,10 +904,10 @@
             setTimeout(iniciarMusica, 300);
 
             // ---------- REGALO CON BOTÓN Y SORPRESA ----------
-            const giftBtn = document.getElementById('giftBtn');
-            const giftSorpresaBox = document.getElementById('giftSorpresaBox');
+            var giftBtn = document.getElementById('giftBtn');
+            var giftSorpresaBox = document.getElementById('giftSorpresaBox');
 
-            let sorpresaVisible = false;
+            var sorpresaVisible = false;
 
             giftBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -939,14 +917,43 @@
                     this.classList.add('revelado');
                     giftSorpresaBox.classList.add('mostrar');
                     // Confeti de celebración
-                    for (let i=0; i<14; i++) {
-                        setTimeout(() => {
-                            const h = document.createElement('div');
-                            h.style.position = 'fixed';
-                            h.style.left = (10 + Math.random() * 80) + '%';
-                            h.style.top = (10 + Math.random() * 60) + '%';
-                            h.style.fontSize = (1.8 + Math.random() * 3) + 'rem';
-                            h.style.pointerEvents = 'none';
-                            h.style.zIndex = '999';
-                            h.innerHTML = ['🎉','🎊','💝','✨','🌟','💖','🎁','🌸','❤️','🌺','🎈','💐','🥳','🎂'][Math.floor(Math.random()*14)];
-                            h.style.transition = 'all 1.8s cubic-bezier(0.16,
+                    for (var i = 0; i < 14; i++) {
+                        (function(indice) {
+                            setTimeout(function() {
+                                var h = document.createElement('div');
+                                h.style.position = 'fixed';
+                                h.style.left = (10 + Math.random() * 80) + '%';
+                                h.style.top = (10 + Math.random() * 60) + '%';
+                                h.style.fontSize = (1.8 + Math.random() * 3) + 'rem';
+                                h.style.pointerEvents = 'none';
+                                h.style.zIndex = '999';
+                                var emojis = ['🎉','🎊','💝','✨','🌟','💖','🎁','🌸','❤️','🌺','🎈','💐','🥳','🎂'];
+                                h.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                                h.style.transition = 'all 1.8s cubic-bezier(0.16, 1, 0.3, 1)';
+                                h.style.opacity = '1';
+                                h.style.transform = 'scale(1.3) rotate(15deg)';
+                                document.body.appendChild(h);
+                                setTimeout(function() {
+                                    h.style.opacity = '0';
+                                    h.style.transform = 'scale(2.5) translateY(-150px) rotate(30deg)';
+                                    setTimeout(function() { h.remove(); }, 1800);
+                                }, 150);
+                            }, indice * 120);
+                        })(i);
+                    }
+                } else {
+                    this.classList.remove('revelado');
+                    giftSorpresaBox.classList.remove('mostrar');
+                }
+            });
+
+            console.log('🎂 ¡Feliz Cumpleaños, Mamá! ❤️');
+            console.log('📸 Galería con desplazamiento automático');
+            console.log('🎵 Canción: "El Cumpleaños De Mi Madre" (siempre sonando)');
+            console.log('💌 Carta de amor lista para leer');
+            console.log('🎁 Botón de regalo con sorpresa');
+
+        })();
+    </script>
+</body>
+</html>
