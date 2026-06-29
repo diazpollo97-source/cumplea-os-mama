@@ -405,6 +405,11 @@
             width: 400px;
             height: 400px;
         }
+
+        /* Ocultar el reproductor de audio por defecto */
+        #audioPlayer {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -415,6 +420,12 @@
 
     <!-- CORAZONES FLOTANDO (contenedor) -->
     <div id="heartsContainer" class="hearts-container"></div>
+
+    <!-- REPRODUCTOR DE AUDIO OCULTO -->
+    <audio id="audioPlayer" loop>
+        <source src="audio/El Cumpleaños De Mi Madre.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
 
     <!-- TARJETA PRINCIPAL -->
     <div class="card">
@@ -473,7 +484,7 @@
                 </button>
                 <span class="music-label">
                     <i class="fas fa-music"></i> 
-                    <span id="musicStatus">pausa</span>
+                    <span id="musicStatus">sonando</span>
                 </span>
             </div>
             <div class="floating-hearts-toggle">
@@ -562,18 +573,15 @@
             let autoSlideInterval = null;
             let isTransitioning = false;
 
-            // Función para mover el slider
             function goToSlide(index) {
                 if (isTransitioning || index === currentIndex) return;
                 isTransitioning = true;
                 currentIndex = index;
                 
-                // Calcular el desplazamiento (80% del ancho + 4px de gap + 8px de padding)
-                const itemWidth = items[0].offsetWidth + 8; // 4px gap + 4px margen
+                const itemWidth = items[0].offsetWidth + 8;
                 const offset = currentIndex * itemWidth;
                 slider.style.transform = `translateX(-${offset}px)`;
                 
-                // Actualizar dots
                 dots.forEach((dot, i) => {
                     dot.classList.toggle('active', i === currentIndex);
                 });
@@ -583,19 +591,16 @@
                 }, 650);
             }
 
-            // Función para avanzar al siguiente slide
             function nextSlide() {
                 const nextIndex = (currentIndex + 1) % totalItems;
                 goToSlide(nextIndex);
             }
 
-            // Iniciar el desplazamiento automático
             function startAutoSlide() {
                 if (autoSlideInterval) clearInterval(autoSlideInterval);
                 autoSlideInterval = setInterval(nextSlide, 3500);
             }
 
-            // Detener el desplazamiento automático
             function stopAutoSlide() {
                 if (autoSlideInterval) {
                     clearInterval(autoSlideInterval);
@@ -603,7 +608,6 @@
                 }
             }
 
-            // Evento para los dots (indicadores)
             dots.forEach((dot) => {
                 dot.addEventListener('click', function() {
                     const index = parseInt(this.dataset.index);
@@ -613,7 +617,6 @@
                 });
             });
 
-            // Pausar auto-slide cuando el usuario interactúa con el slider
             const galleryWrapper = document.querySelector('.gallery-wrapper');
             galleryWrapper.addEventListener('touchstart', function() {
                 stopAutoSlide();
@@ -629,10 +632,8 @@
                 setTimeout(startAutoSlide, 2000);
             });
 
-            // Iniciar el auto-slide
             setTimeout(startAutoSlide, 1000);
 
-            // Recalcular en resize
             let resizeTimeout;
             window.addEventListener('resize', function() {
                 clearTimeout(resizeTimeout);
@@ -647,75 +648,66 @@
                 }, 200);
             });
 
-            // ---------- MÚSICA ----------
+            // ---------- MÚSICA CON AUDIO REAL ----------
+            const audio = document.getElementById('audioPlayer');
             const musicBtn = document.getElementById('musicToggleBtn');
             const musicPlayerEl = document.getElementById('musicPlayer');
             const musicStatus = document.getElementById('musicStatus');
 
             let isPlaying = false;
-            let audioCtx = null;
-            let oscillator = null;
-            let gainNode = null;
 
-            function startSound() {
-                try {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    oscillator = audioCtx.createOscillator();
-                    gainNode = audioCtx.createGain();
-                    oscillator.type = 'sine';
-                    oscillator.frequency.value = 523.25;
-                    gainNode.gain.value = 0.08;
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioCtx.destination);
-                    oscillator.start();
-                    
-                    gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime);
-                    oscillator.frequency.setValueAtTime(523, audioCtx.currentTime);
-                    oscillator.frequency.linearRampToValueAtTime(659, audioCtx.currentTime + 0.3);
-                    oscillator.frequency.linearRampToValueAtTime(587, audioCtx.currentTime + 0.6);
-                    oscillator.frequency.linearRampToValueAtTime(523, audioCtx.currentTime + 0.9);
-                    
-                    setTimeout(() => {
-                        if (oscillator) {
-                            try { oscillator.stop(); } catch(e) {}
-                        }
-                    }, 3000);
-                } catch(e) {
-                    console.log('audio no disponible');
-                }
+            // Intentar reproducir automáticamente al cargar
+            function playAudio() {
+                audio.play()
+                    .then(() => {
+                        isPlaying = true;
+                        musicPlayerEl.classList.add('playing');
+                        musicStatus.innerText = 'sonando';
+                        console.log('🎵 Música reproduciéndose');
+                    })
+                    .catch((error) => {
+                        console.log('🔇 Autoplay bloqueado. Esperando interacción del usuario.');
+                        musicStatus.innerText = 'pausa';
+                        document.addEventListener('click', function playOnClick() {
+                            audio.play()
+                                .then(() => {
+                                    isPlaying = true;
+                                    musicPlayerEl.classList.add('playing');
+                                    musicStatus.innerText = 'sonando';
+                                    console.log('🎵 Música iniciada por clic');
+                                })
+                                .catch(e => console.log('❌ Error al reproducir:', e));
+                            document.removeEventListener('click', playOnClick);
+                        }, { once: true });
+                    });
             }
 
+            // Función para toggle (play/pausa)
             function toggleMusic() {
-                isPlaying = !isPlaying;
                 if (isPlaying) {
-                    musicPlayerEl.classList.add('playing');
-                    musicStatus.innerText = 'sonando';
-                    startSound();
-                } else {
+                    audio.pause();
+                    isPlaying = false;
                     musicPlayerEl.classList.remove('playing');
                     musicStatus.innerText = 'pausa';
-                    if (oscillator) {
-                        try { oscillator.stop(); } catch(e) {}
-                        oscillator = null;
-                    }
-                    if (audioCtx && audioCtx.state === 'running') {
-                        audioCtx.close();
-                        audioCtx = null;
-                    }
+                } else {
+                    audio.play()
+                        .then(() => {
+                            isPlaying = true;
+                            musicPlayerEl.classList.add('playing');
+                            musicStatus.innerText = 'sonando';
+                        })
+                        .catch(e => console.log('Error:', e));
                 }
             }
 
+            // Evento del botón de música
             musicBtn.addEventListener('click', toggleMusic);
 
-            document.addEventListener('click', function initAudio() {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-            }, { once: true });
+            // Iniciar música al cargar
+            setTimeout(playAudio, 500);
 
             // ---------- CAJA DE REGALO ----------
             const giftBox = document.getElementById('giftBox');
-            const giftReveal = document.getElementById('giftReveal');
 
             giftBox.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -750,6 +742,7 @@
 
             console.log('🎂 ¡Feliz Cumpleaños, Mamá! ❤️');
             console.log('📸 Galería con desplazamiento automático');
+            console.log('🎵 Canción: "El Cumpleaños De Mi Madre"');
         })();
     </script>
 </body>
